@@ -1,0 +1,51 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+
+    margin: 0 auto;
+    width: 70%;
+
+    background-color: white;
+
+    font-family: Arial, Helvetica, sans-serif
+    ;
+  }
+
+ #board{
+    height: 60vh;
+    width: 70vh;
+
+    background-color: blue;
+    border: .5em solid navy;
+
+    margin: 0 auto;
+    
+   display: grid;
+   grid-template-columns: repeat(7, minmax(8%, 1fr));
+   grid-template-rows: repeat(6, minmax(8%, 1fr));
+   column-gap: .5rem;
+   row-gap: .5rem;
+   justify-items: center;
+   align-items: center;
+   padding: .5em;
+ }
+
+ .space{
+   height: 90%;
+   width: 95%;
+   
+
+   background-color: white;
+   border-radius: 50%;
+   border: .3em solid navy;
+ }
+
+ .red-piece{
+   background-color: red;
+ }
+
+ .yellow-piece{
+   background-color: yellow;
+ }
