@@ -84,6 +84,20 @@ function getDiagRight(diagRight){
     return diag1Arr
 }
 
+
+
+function getDiagLeft(diagLeft){
+    
+    let diag2Arr = []
+    
+    if(diagLeft > 0){}
+
+        for (let row = 0; row < 6; row++{
+            diag2Arr.push(board[row][col])
+        } 
+    return diag2Arr
+}
+
 // connect4();
 console.log(getDiagRight(1))
 

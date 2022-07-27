@@ -5,20 +5,26 @@ body{
     flex-wrap: wrap;
 
     margin: 0 auto;
-    width: 70%;
+
 
     background-color: white;
 
-    font-family: Arial, Helvetica, sans-serif
-    ;
+    font-family: Arial, Helvetica, sans-serif;
+
+background-color: white;
   }
 
  #board{
-    height: 60vh;
-    width: 70vh;
+    height: 60vmin;
+    width: 70vmin;
 
-    background-color: blue;
+    /* background-image: linear-gradient(-225deg, blue, mediumblue); */
+    background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 50%,#0000 66%)mediumblue;
     border: .5em solid navy;
+
+    background-size:300% 100%;
+    animation: shine 45s infinite;
+    animation-timing-function: ease;
 
     margin: 0 auto;
     
@@ -40,12 +46,117 @@ body{
    background-color: white;
    border-radius: 50%;
    border: .3em solid navy;
+
+ }
+
+ #board-top{
+  height: 8vmin;
+  width: 70vmin;
+
+  margin: 0 auto;
+  
+ display: grid;
+ grid-template-columns: repeat(7, minmax(8%, 1fr));
+ column-gap: .5rem;
+ row-gap: .5rem;
+ justify-items: center;
+ align-items: center;
+ padding: .3em;
+
+ }
+
+
+ .top-space{
+
+  background-color: white;
+  border-radius: 50%;
+ 
  }
 
  .red-piece{
-   background-color: red;
- }
+
+  background-color: red;
+  box-shadow: darkblue 0rem 0.7rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset; 
+
+  position: relative;
+  animation-name: drop;
+  animation-duration: .7s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+}
+
 
  .yellow-piece{
-   background-color: yellow;
+
+   background-color: gold;
+   box-shadow: darkblue 0rem 0.7rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset; 
  }
+
+ .winning-piece{
+  border: .3em solid white;
+  box-shadow: .3rem .3rem .7rem lightblue, white 0rem 0.7rem 1.4rem -0.8rem inset, white 0rem 0.3rem 0.8rem -1.2rem inset;
+ }
+
+
+
+.top-yellow{
+  height: 95%;
+  width: 90%;
+
+  background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 30%,#0000 66%)gold;
+  border: solid rgb(0,0,0,0);
+  border-radius: 50%;
+  box-shadow: .5rem .5rem 1rem darkgray;
+  z-index: -1;
+}
+
+.top-red{
+  height: 95%;
+  width: 90%;
+
+  background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 30%,#0000 66%)red;
+  border: solid rgb(0,0,0,0);
+  border-radius: 50%;
+  box-shadow: .5rem .5rem 1rem darkgray;
+
+  z-index: -1;
+}
+
+.bob{
+  position: relative;
+  animation-name: bob;
+  animation-duration: .7s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}
+
+.shine-shadow{
+  background-size:300% 100%;
+  animation: shine 10s infinite;
+  animation-timing-function: ease;
+}
+
+/* .shadow{
+  animation: shadow 75s infinite;
+  animation-timing-function: ease;
+} */
+
+@keyframes bob {
+  0%   { top: -5px;}
+  50%  {top: -20%;}
+  100%  {top: -5px;}
+}
+
+
+/* @keyframes shadow {
+  0% {box-shadow: 1rem 1rem 2rem darkgray;}
+  50% {box-shadow: -1rem -1rem 2rem darkgray;}
+  100% {box-shadow: 1rem 1rem 2rem darkgray;}
+} */
+
+
+@keyframes shine {
+  0% {background-position: right; box-shadow: 1rem 1rem 2rem gray;}
+  50% {background-position: left; box-shadow: -1rem 2rem 1rem dimgray;}
+  100% {background-position: right; box-shadow: 1rem 1rem 2rem gray;}
+}
