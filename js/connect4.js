@@ -16,7 +16,6 @@ const columns = 7;
 
 let scoreRed = 0
 let scoreYellow = 0
-const score = `${scoreRed}-${scoreYellow}`
 
 
 window.onload = function() {
@@ -29,6 +28,7 @@ function setGame() {
     setBoard();
     setTopRow();
     setLighting();
+    updateScore();
 }
 
 function setBoard(){
@@ -39,9 +39,9 @@ function setBoard(){
             let space = document.createElement('div');
             space.setAttribute('id', r + '-' + c);
             space.setAttribute('class', 'space');
-            space.addEventListener('click', assignSpace)
-            space.addEventListener('mousemove', highlightColumn)
-            space.addEventListener('mouseout', resetHighlightColumn)
+            space.addEventListener('click', move);
+            space.addEventListener('mousemove', highlightColumn);
+            space.addEventListener('mouseout', resetHighlightColumn);
             document.getElementById('board').appendChild(space);
         }
         board.push(row);
@@ -55,6 +55,23 @@ function setTopRow(){
         space.classList.add('top-space');
         space.classList.add('bob');
         document.getElementById('board-top').appendChild(space);
+    }
+}
+
+function updateScore(){
+    setWinner();
+    let score = `${scoreRed}-${scoreYellow}`
+    let scorePlaceholder = document.getElementById('score');
+    scorePlaceholder.innerText = String(score);
+}
+
+function setWinner(){
+    if (gameOver === true){
+        if(currentPlayer === playerRed){
+            scoreRed ++;
+        }else{
+            scoreYellow ++;
+        }
     }
 }
 
@@ -97,7 +114,8 @@ function toggleLighting(){
             dynamicLighting = true;
         } else {
             dynamicLighting = false;
-            document.getElementById('toggle').checked = false
+            let toggle = document.getElementById('toggle')
+            toggle.checked = false
         } 
     }else{
         dynamicLighting = false;
@@ -106,34 +124,39 @@ function toggleLighting(){
 }
 
 function highlightColumn(e){
+    
     if(gameOver){
         return
     }
 
-    if (document.getElementById('animation-div') !== null){
-    let deleteDiv = document.getElementById('animation-div');
-    deleteDiv.remove();
-    }
-
     let location = this.id.split('-');
     let c = location[1];
-    let topSpace = document.getElementById('top-' + c)
-
-    topSpace.classList.remove('top-red');
-    topSpace.classList.remove('top-yellow');
-
-    if(currentPlayer === playerRed){
-        topSpace.classList.add('top-red');
-    }else{
-        topSpace.classList.add('top-yellow');
-    }
-
-    if (document.getElementById('animation-div') === null){
     let r = fillTracker[c]
-    let animationContainer = document.createElement('div');
-    animationContainer.setAttribute('id', 'animation-div');
-    let space = document.getElementById(String(r) + '-' + String(c));
-    space.appendChild(animationContainer);
+    
+    removeExistingAnimationElement();
+    updateTopPiece(c);
+    addNewAnimationElement(r,c);
+}
+
+function removeExistingAnimationElement(){
+    let animatePiece = document.getElementById('animation-div')
+
+    if (animatePiece !== null){
+    animatePiece.remove();
+    }
+}
+
+function updateTopPiece(c){
+    let topSpace = document.getElementById('top-' + c)
+    topSpace.classList.add(`top-${currentPlayer}`);
+}
+
+function addNewAnimationElement(r,c){
+    if (document.getElementById('animation-div') === null){
+        let animationContainer = document.createElement('div');
+        animationContainer.setAttribute('id', 'animation-div');
+        let space = document.getElementById(String(r) + '-' + String(c));
+        space.appendChild(animationContainer);
     }
 }
 
@@ -150,7 +173,7 @@ function resetHighlightColumn(e){
     deleteDiv.remove();
 }
 
-function assignSpace(e){
+function move(e){
 
     if(gameOver){
         return;
@@ -164,37 +187,51 @@ function assignSpace(e){
         return;
     }
 
-    let animatePiece = document.getElementById('animation-div')
+    dropAnimation();
+    assignSpace(r,c);
 
-    board[r][c] = currentPlayer;
-    let filledSpace = document.getElementById(String(r) + '-' + String(c));
-    document.getElementById('animation-div').classList.add('drop')
-
-    filledSpace.classList.add(`${currentPlayer}-piece`);
-    animatePiece.classList.add(`${currentPlayer}-piece`);
-    
     if(connect4()){
         gameOver = true
     }
 
+    updateScore();
+    resetTopRow(c);
+    alternatePlayer();
+    updateFillTracker(r,c);
+}
+
+function assignSpace(r,c){
+    board[r][c] = currentPlayer;
+    let filledSpace = document.getElementById(String(r) + '-' + String(c));
+    filledSpace.classList.add(`${currentPlayer}-piece`);
+}
+
+function dropAnimation(){
+    let animatePiece = document.getElementById('animation-div');
+    animatePiece.classList.add('drop');
+    animatePiece.classList.add(`${currentPlayer}-piece`);
+}
+
+function alternatePlayer(){
     if (currentPlayer === playerRed){
         currentPlayer = playerYellow;
     }else{
         currentPlayer = playerRed;
     }
+}
 
-    for(i = 0; i < columns; i++){
-        let topSpace = document.getElementById('top-' + c)
-        topSpace.classList.remove('top-red');
-        topSpace.classList.remove('top-yellow');
-    }
-    
+function resetTopRow(c){
+    let topSpace = document.getElementById('top-' + c);
+    topSpace.classList.remove(`top-${currentPlayer}`);
+}
+
+function updateFillTracker(r,c){
     r --;
     fillTracker[c] = r;
-    
 }
 
 function connect4(){
+
     if(getRow()){
         return true
     }
