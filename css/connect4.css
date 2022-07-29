@@ -3,28 +3,33 @@ body{
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
+    width: 70vmin;
 
     margin: 0 auto;
 
 
     background-color: white;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Cairo" ,Arial, Helvetica, sans-serif;
 
 background-color: white;
   }
+
+  #title{
+    font-weight: bolder;
+    font-size: 5vmin;
+  }
+
 
  #board{
     height: 60vmin;
     width: 70vmin;
 
-    /* background-image: linear-gradient(-225deg, blue, mediumblue); */
-    background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 50%,#0000 66%)mediumblue;
+    background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.4) 50%,#0000 66%)mediumblue;
     border: .5em solid navy;
 
     background-size:300% 100%;
-    animation: shine 45s infinite;
-    animation-timing-function: ease;
+
 
     margin: 0 auto;
     
@@ -41,13 +46,26 @@ background-color: white;
  .space{
    height: 90%;
    width: 95%;
-   
 
    background-color: white;
    border-radius: 50%;
    border: .3em solid navy;
 
+  z-index: 10;
  }
+
+ #animation-div{
+  height: 100%;
+  width: 100%;
+  border: solid rgb(0,0,0,0);
+  border-radius: 50%;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
 
  #board-top{
   height: 8vmin;
@@ -75,26 +93,26 @@ background-color: white;
 
  .red-piece{
 
-  background-color: red;
-  box-shadow: darkblue 0rem 0.7rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset; 
+  background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 50%,#0000 66%)red;
+  background-size:150% 100%;
 
-  position: relative;
-  animation-name: drop;
-  animation-duration: .7s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
+  /* background-color: red; */
+   /* box-shadow: darkblue 0rem 0.7rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset; */
 }
 
 
  .yellow-piece{
 
-   background-color: gold;
-   box-shadow: darkblue 0rem 0.7rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset; 
+  background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 50%,#0000 66%)gold;
+  background-size:150% 100%;
+
+   /* box-shadow: darkblue 0rem 0.7rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset; */
+    
  }
 
  .winning-piece{
   border: .3em solid white;
-  box-shadow: .3rem .3rem .7rem lightblue, white 0rem 0.7rem 1.4rem -0.8rem inset, white 0rem 0.3rem 0.8rem -1.2rem inset;
+  box-shadow: .3rem .3rem .7rem lightblue, lightblue 0rem 0.7rem 1.4rem -0.8rem inset, lightblue 0rem 0.3rem 0.8rem -1.2rem inset;
  }
 
 
@@ -114,13 +132,22 @@ background-color: white;
   height: 95%;
   width: 90%;
 
-  background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 30%,#0000 66%)red;
+  background: linear-gradient(-190deg,#0000 23%,rgba(255,255,255,0.3) 30%,#0000 66%)red;
   border: solid rgb(0,0,0,0);
   border-radius: 50%;
   box-shadow: .5rem .5rem 1rem darkgray;
 
   z-index: -1;
 }
+
+
+.appear{
+  animation-name: appear;
+  animation-duration: .2s;
+  animation-iteration-count: 1;
+  animation-iteration-count: 1;
+ }
+
 
 .bob{
   position: relative;
@@ -130,16 +157,27 @@ background-color: white;
   animation-timing-function: ease;
 }
 
-.shine-shadow{
+.shineshadow{
   background-size:300% 100%;
-  animation: shine 10s infinite;
+  animation: shineshadow 45s infinite;
   animation-timing-function: ease;
 }
 
-/* .shadow{
-  animation: shadow 75s infinite;
+
+.drop{
+  position: relative;
+  animation-name: drop;
+  animation-duration: .04s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+}
+
+.shadow{
+  animation: shadow 45s infinite;
   animation-timing-function: ease;
-} */
+  background-size:300% 100%;
+}
+
 
 @keyframes bob {
   0%   { top: -5px;}
@@ -147,16 +185,24 @@ background-color: white;
   100%  {top: -5px;}
 }
 
+@keyframes drop {
+  0%   { top: -60vmin; visibility: visible;}
+  100%  {top: 0px; visibility: hidden}
+}
 
-/* @keyframes shadow {
-  0% {box-shadow: 1rem 1rem 2rem darkgray;}
-  50% {box-shadow: -1rem -1rem 2rem darkgray;}
-  100% {box-shadow: 1rem 1rem 2rem darkgray;}
-} */
+@keyframes shineshadow {
+  0% {background-position: right; box-shadow: 1rem 1rem 2rem dimgray;}
+  50% {background-position: left; box-shadow: -1rem 1rem 1rem dimgray;}
+  100% {background-position: right; box-shadow: 1rem 1rem 2rem dimgray;}
+}
 
+@keyframes shadow {
+  0% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset}
+  50% {background-position: left; box-shadow: darkblue -0.7rem 0.4rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset}
+  100% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset}
+}
 
-@keyframes shine {
-  0% {background-position: right; box-shadow: 1rem 1rem 2rem gray;}
-  50% {background-position: left; box-shadow: -1rem 2rem 1rem dimgray;}
-  100% {background-position: right; box-shadow: 1rem 1rem 2rem gray;}
+@keyframes appear {
+  0%   {opacity: 0;}
+  100%  {opacity: 1;}
 }

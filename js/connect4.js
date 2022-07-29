@@ -48,6 +48,7 @@ function setGame() {
             let space = document.createElement('div');
             space.setAttribute('id', r + '-' + c);
             space.setAttribute('class', 'space');
+            space.classList.add('shadow');
             space.addEventListener('click', assignSpace)
             space.addEventListener('mousemove', highlightColumn)
             space.addEventListener('mouseout', resetHighlightColumn)
@@ -73,10 +74,16 @@ function highlightColumn(e){
     if(gameOver){
         return
     }
+
+    if (document.getElementById('animation-div') !== null){
+    let deleteDiv = document.getElementById('animation-div');
+    deleteDiv.remove();
+    }
+
     //Take the id of the clicked element, split it into grid numbers and add to an array
     let location = this.id.split('-');
         //Column is the second index of location array
-    let c = Number(location[1]);
+    let c = location[1];
     let topSpace = document.getElementById('top-' + c)
 
     topSpace.classList.remove('top-red');
@@ -87,6 +94,16 @@ function highlightColumn(e){
     }else{
         topSpace.classList.add('top-yellow');
     }
+
+    if (document.getElementById('animation-div') === null){
+    let r = fillTracker[c]
+    let animationContainer = document.createElement('div');
+    animationContainer.setAttribute('id', 'animation-div');
+    let space = document.getElementById(String(r) + '-' + String(c));
+    space.appendChild(animationContainer);
+    }
+
+
 }
 
 
@@ -97,10 +114,13 @@ function resetHighlightColumn(e){
         //Column is the second index of location array
     let c = Number(location[1]);
 
-    // window.alert(c);
     let topSpace = document.getElementById('top-' + c)
-        topSpace.classList.remove('top-red');
-        topSpace.classList.remove('top-yellow');
+    topSpace.classList.remove('top-red');
+    topSpace.classList.remove('top-yellow');
+
+
+    let deleteDiv = document.getElementById('animation-div');
+    deleteDiv.remove();
 }
 
 
@@ -142,18 +162,22 @@ function assignSpace(e){
     let filledSpace = document.getElementById(String(r) + '-' + String(c));
     // window.alert(String(r)+String(c));
 
+    document.getElementById('animation-div').classList.add('drop')
+
     // Fill the current location with the same colour as the cuurent player then assign the next player as the current player
     if (currentPlayer === playerRed){
         filledSpace.classList.add('red-piece');
+        document.getElementById('animation-div').classList.add('red-piece')
+        // filledSpace.classList.add('shadow');
         if(connect4()){
-            test.innerText = 'someone wins'
             gameOver = true
         }
         currentPlayer = playerYellow;
     }else{
         filledSpace.classList.add('yellow-piece');
+        document.getElementById('animation-div').classList.add('yellow-piece')
+        // filledSpace.classList.add('shadow');
         if(connect4()){
-            test.innerText = 'someone wins'
             gameOver = true
         }
         currentPlayer = playerRed;
@@ -165,9 +189,12 @@ function assignSpace(e){
         topSpace.classList.remove('top-yellow');
     }
     
+
+
     //Decrement the row index of the current column in the fillTracker array
     r --;
     fillTracker[c] = r;
+    
 }
 
 //---------------------------------------------------------------------------------------------------------------------------
@@ -194,8 +221,9 @@ function getRow(){
             if (board[r][c] !== ' '){
                 if (board[r][c] == board[r][c+1] && board[r][c+1] == board[r][c+2] && board[r][c+2] == board[r][c+3] ){
                     for(let j = 0; j < 4; j++){
-                        let winningSpace = document.getElementById(String(r)+'-'+String(c + j))
-                        winningSpace.classList.add('winning-piece')
+                        let winningSpace = document.getElementById(String(r)+'-'+String(c + j));
+                        winningSpace.classList.remove('shadow');
+                        winningSpace.classList.add('winning-piece');
                     }
                     return true
                 }
@@ -212,8 +240,9 @@ function getColumn(){
             if (board[r][c] !== ' '){
                 if (board[r][c] == board[r+1][c] && board[r+1][c] == board[r+2][c] && board[r+2][c] == board[r+3][c] ){
                     for(let j = 0; j < 4; j++){
-                        let winningSpace = document.getElementById(String(r + j)+'-'+String(c))
-                        winningSpace.classList.add('winning-piece')
+                        let winningSpace = document.getElementById(String(r + j)+'-'+String(c));
+                        winningSpace.classList.remove('shadow');
+                        winningSpace.classList.add('winning-piece');
                     }
                     return true
                 }
@@ -230,8 +259,9 @@ function getDiagDown(){
             if (board[r][c] !== ' '){
                 if (board[r][c] == board[r+1][c+1] && board[r+1][c+1] == board[r+2][c+2] && board[r+2][c+2] == board[r+3][c+3] ){
                     for(let j = 0; j < 4; j++){
-                        let winningSpace = document.getElementById(String(r + j)+'-'+String(c + j))
-                        winningSpace.classList.add('winning-piece')
+                        let winningSpace = document.getElementById(String(r + j)+'-'+String(c + j));
+                        winningSpace.classList.remove('shadow');
+                        winningSpace.classList.add('winning-piece');
                     }
                     return true
                 }
@@ -248,8 +278,9 @@ function getDiagUp(){
             if (board[r][c] !== ' '){
                 if (board[r][c] == board[r-1][c+1] && board[r-1][c+1] == board[r-2][c+2] && board[r-2][c+2] == board[r-3][c+3] ){
                     for(let j = 0; j < 4; j++){
-                        let winningSpace = document.getElementById(String(r - j)+'-'+String(c + j))
-                        winningSpace.classList.add('winning-piece')
+                        let winningSpace = document.getElementById(String(r - j)+'-'+String(c + j));
+                        winningSpace.classList.remove('shadow');
+                        winningSpace.classList.add('winning-piece');
                     }
                     return true
                 }
