@@ -10,10 +10,28 @@
     <title>Connect Four</title>
 </head>
 <body>
-    <h1 class="title" id="title">CONNECT FOUR</h1>
-    <section>
+    <header>
+        <h3 class="title" id="title">CONNECT FOUR</h3>
+        <ul class="navlinks">
+            <li>Red</li>
+            <li id="score">0-0</li>
+            <li>Yellow</li>
+        </ul>
+        <nav>
+            <ul class="navlinks">
+                <li><a>New Game</a></li>
+                <li>Dynamic Lighting
+                    <label class="switch">
+                        <input id="toggle" type="checkbox" onclick="toggleLighting()">
+                        <span class="slider round"></span>
+                    </label> 
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
         <div id="board-top"></div>
         <div id="board" class="shineshadow"></div> 
-    </section>
+    </main>
 </body>
 </html>
