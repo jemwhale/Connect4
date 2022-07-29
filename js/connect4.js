@@ -1,22 +1,19 @@
-let test = document.getElementById('title');
-
 const playerRed = 'red';
 const playerYellow = 'yellow';
 
 let currentPlayer = playerRed;
+let redToStart = true
 
 let board = [];
 let fillTracker = []
-
-let gameOver = false;
-let dynamicLighting = false
 
 const rows = 6;
 const columns = 7;
 
 let scoreRed = 0
 let scoreYellow = 0
-
+let gameOver = false;
+let dynamicLighting = false
 
 window.onload = function() {
     setGame();
@@ -254,9 +251,7 @@ function getRow(){
                 if (board[r][c] == board[r][c+1] && board[r][c+1] == board[r][c+2] && board[r][c+2] == board[r][c+3] ){
                     for(let j = 0; j < 4; j++){
                         let winningSpace = document.getElementById(String(r)+'-'+String(c + j));
-                        winningSpace.classList.remove('dynamicshadow');
-                        winningSpace.classList.remove('staticshadow');
-                        winningSpace.classList.add('winning-piece');
+                        highlightWin(winningSpace);
                     }
                     return true
                 }
@@ -273,9 +268,7 @@ function getColumn(){
                 if (board[r][c] == board[r+1][c] && board[r+1][c] == board[r+2][c] && board[r+2][c] == board[r+3][c] ){
                     for(let j = 0; j < 4; j++){
                         let winningSpace = document.getElementById(String(r + j)+'-'+String(c));
-                        winningSpace.classList.remove('dynamicshadow');
-                        winningSpace.classList.remove('staticshadow');
-                        winningSpace.classList.add('winning-piece');
+                        highlightWin(winningSpace);
                     }
                     return true
                 }
@@ -292,9 +285,7 @@ function getDiagDown(){
                 if (board[r][c] == board[r+1][c+1] && board[r+1][c+1] == board[r+2][c+2] && board[r+2][c+2] == board[r+3][c+3] ){
                     for(let j = 0; j < 4; j++){
                         let winningSpace = document.getElementById(String(r + j)+'-'+String(c + j));
-                        winningSpace.classList.remove('dynamicshadow');
-                        winningSpace.classList.remove('staticshadow');
-                        winningSpace.classList.add('winning-piece');
+                        highlightWin(winningSpace);
                     }
                     return true
                 }
@@ -311,9 +302,7 @@ function getDiagUp(){
                 if (board[r][c] == board[r-1][c+1] && board[r-1][c+1] == board[r-2][c+2] && board[r-2][c+2] == board[r-3][c+3] ){
                     for(let j = 0; j < 4; j++){
                         let winningSpace = document.getElementById(String(r - j)+'-'+String(c + j));
-                        winningSpace.classList.remove('dynamicshadow');
-                        winningSpace.classList.remove('staticshadow');
-                        winningSpace.classList.add('winning-piece');
+                        highlightWin(winningSpace);
                     }
                     return true
                 }
@@ -322,3 +311,52 @@ function getDiagUp(){
     }
     return false
 }
+
+function highlightWin(winningSpace){
+    winningSpace.classList.remove('dynamicshadow');
+    winningSpace.classList.remove('staticshadow');
+    winningSpace.classList.add('winning-piece');
+}
+
+function resetGame(){
+    clearSpaces();
+    clearTopSpaces();
+    clearScore();
+    resetPlayers(); 
+    setGame();
+}
+
+function clearSpaces(){
+    for (let r = 0; r < rows; r++){
+        for (let c = 0; c < columns; c++){
+            let removedSpace = document.getElementById(String(r) + '-' + String(c));
+            removedSpace.remove();
+        }
+    }
+}
+
+function clearTopSpaces(){
+    for (c = 0; c < columns; c++){
+        let removedSpace = document.getElementById('top-' + String(c));
+        removedSpace.remove();
+    }
+}
+
+function clearScore(){
+    scoreRed = 0
+    scoreYellow = 0
+}
+
+function resetPlayers(){
+    gameOver = false
+    redToStart = true
+}
+
+
+// if (redToStart){
+//     currentPlayer = playerYellow
+//     redToStart= false
+// }else{
+//     redToStart = true
+//     currentPlayer = playerRed
+// }

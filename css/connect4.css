@@ -47,7 +47,7 @@ header{
     height: 60vmin;
     width: 70vmin;
 
-    background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.4) 50%,#0000 66%)mediumblue;
+    background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.5) 50%,#0000 66%)mediumblue;
     border: .5em solid navy;
 
     background-size:300% 100%;
@@ -228,9 +228,9 @@ header{
 }
 
 @keyframes shadow {
-  0% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset}
-  50% {background-position: left; box-shadow: darkblue -0.7rem 0.4rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset}
-  100% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset}
+  0% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.4rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
+  50% {background-position: left; box-shadow: darkblue -0.7rem 0.4rem 1.4rem -0.4rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
+  100% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.4rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
 }
 
 @keyframes appear {
