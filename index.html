@@ -11,20 +11,24 @@
 </head>
 <body>
     <header>
-        <h3 class="title" id="title">CONNECT FOUR</h3>
+        <h3 class="title1" id="title">CONNECTFOUR</h3>
         <ul class="navlinks">
-            <li>Red</li>
+            <li class="red">Red</li>
             <li id="score"></li>
-            <li>Yellow</li>
+            <li class="yellow">Yellow</li>
         </ul>
         <nav>
             <ul class="navlinks">
+                <li><a id="newround" class="hide" onclick="resetRound()">Next Round</a></li>
                 <li><a id="newgame" onclick="resetGame()">New Game</a></li>
-                <li>Dynamic Lighting
-                    <label class="switch">
-                        <input id="toggle" type="checkbox" onclick="toggleLighting()">
+                <li class="show">Dynamic Lighting
+                    <label class="switch" alt="dynamic lighting">
+                        <input id="toggle" class="toggle" type="checkbox" onclick="toggleLighting()">
                         <span class="slider round"></span>
                     </label> 
+                </li>
+                <li>
+
                 </li>
             </ul>
         </nav>

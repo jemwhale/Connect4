@@ -19,11 +19,12 @@ li, a{
 
 header{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 0px 10px;
   width: 100%;
   height: 40px;
-  background-color: red;
+  box-shadow: .1rem 0rem 1rem lightgray;
 }
 
 .navlinks{
@@ -32,7 +33,15 @@ header{
 
 .navlinks li{
   display: inline-block;
-  padding: 0px 20px;
+  padding: 0px .7rem;
+}
+
+.red{
+  color: red;
+}
+
+.yellow{
+  color: gold;
 }
 
 #newgame{
@@ -43,27 +52,35 @@ header{
   color: mediumblue;
 }
 
- #board{
-    height: 60vmin;
-    width: 70vmin;
+.hide{
+  display: none;
+}
 
-    background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.5) 50%,#0000 66%)mediumblue;
-    border: .5em solid navy;
+.show{
+  display: inline-block;
+  cursor: pointer;
+}
 
-    background-size:300% 100%;
+#board{
+  height: 60vmin;
+  width: 70vmin;
 
+  background: linear-gradient(-225deg,#0000 23%,rgba(255, 255, 255, 0.6) 50%,#0000 66%)mediumblue;
+  border: .5em solid navy;
 
-    margin: 0 auto;
-    
-   display: grid;
-   grid-template-columns: repeat(7, minmax(8%, 1fr));
-   grid-template-rows: repeat(6, minmax(8%, 1fr));
-   column-gap: .5rem;
-   row-gap: .5rem;
-   justify-items: center;
-   align-items: center;
-   padding: .5em;
- }
+  background-size:300% 100%;
+
+  margin: 0 auto;
+  
+  display: grid;
+  grid-template-columns: repeat(7, minmax(8%, 1fr));
+  grid-template-rows: repeat(6, minmax(8%, 1fr));
+  column-gap: .5rem;
+  row-gap: .5rem;
+  justify-items: center;
+  align-items: center;
+  padding: .5em;
+}
 
  .space{
    height: 90%;
@@ -106,7 +123,6 @@ header{
 
  }
 
-
  .top-space{
 
   background-color: white;
@@ -120,7 +136,6 @@ header{
   background-size:150% 100%;
 }
 
-
  .yellow-piece{
 
   background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 50%,#0000 66%)gold;
@@ -132,14 +147,12 @@ header{
   box-shadow: .3rem .3rem .7rem lightblue, lightblue 0rem 0.7rem 1.4rem -0.8rem inset, lightblue 0rem 0.3rem 0.8rem -1.2rem inset;
  }
 
-
-
 .top-yellow{
   height: 95%;
-  width: 90%;
+  width: 88%;
 
   background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 30%,#0000 66%)gold;
-  border: solid rgb(0,0,0,0);
+  border: solid rgb(255,205,0,1);
   border-radius: 50%;
   box-shadow: .5rem .5rem 1rem darkgray;
   z-index: -1;
@@ -147,11 +160,11 @@ header{
 
 .top-red{
   height: 95%;
-  width: 90%;
+  width: 88%;
 
   background: linear-gradient(-225deg,#0000 23%,rgba(255,255,255,0.3) 30%,#0000 66%)red;
 
-  border: solid rgb(0,0,0,0);
+  border: solid rgb(255,0,0,1);
   border-radius: 50%;
   box-shadow: .5rem .5rem 1rem darkgray;
 
@@ -168,14 +181,6 @@ header{
   box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.8rem inset, darkblue 0rem 0.3rem 0.8rem -1.2rem inset
 }
 
-.appear{
-  animation-name: appear;
-  animation-duration: .2s;
-  animation-iteration-count: 1;
-  animation-iteration-count: 1;
- }
-
-
 .bob{
   position: relative;
   animation-name: bob;
@@ -184,16 +189,27 @@ header{
   animation-timing-function: ease;
 }
 
+@keyframes bob {
+  0%   { top: -5px;}
+  50%  {top: -20%;}
+  100%  {top: -5px;}
+}
+
 .dynamicshine{
   background-size:300% 100%;
   animation: shineshadow 45s infinite;
   animation-timing-function: ease;
 }
 
+@keyframes shineshadow {
+  0% {background-position: right; box-shadow: 2rem 1rem 2rem black;}
+  50% {background-position: left; box-shadow: -2rem 1rem 1rem black;}
+  100% {background-position: right; box-shadow: 2rem 1rem 2rem black;}
+}
+
 .staticshine{
   box-shadow: 1rem 1rem 2rem dimgray;
 }
-
 
 .drop{
   position: relative;
@@ -203,39 +219,21 @@ header{
   animation-timing-function: ease-in;
 }
 
+@keyframes drop {
+  0%   { top: -60vmin; visibility: visible;}
+  100%  {top: 0px; visibility: hidden}
+}
+
 .dynamicshadow{
   animation: shadow 45s infinite;
   animation-timing-function: ease;
   background-size:300% 100%;
 }
 
-
-@keyframes bob {
-  0%   { top: -5px;}
-  50%  {top: -20%;}
-  100%  {top: -5px;}
-}
-
-@keyframes drop {
-  0%   { top: -60vmin; visibility: visible;}
-  100%  {top: 0px; visibility: hidden}
-}
-
-@keyframes shineshadow {
-  0% {background-position: right; box-shadow: 1rem 1rem 2rem dimgray;}
-  50% {background-position: left; box-shadow: -1rem 1rem 1rem dimgray;}
-  100% {background-position: right; box-shadow: 1rem 1rem 2rem dimgray;}
-}
-
 @keyframes shadow {
-  0% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.4rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
-  50% {background-position: left; box-shadow: darkblue -0.7rem 0.4rem 1.4rem -0.4rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
-  100% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 1.4rem -0.4rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
-}
-
-@keyframes appear {
-  0%   {opacity: 0;}
-  100%  {opacity: 1;}
+  0% {background-position: right; box-shadow: darkblue 0.3rem 0.4rem 1.4rem -.5rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
+  50% {background-position: left; box-shadow: darkblue -0.3rem 0.4rem 1.4rem -.5rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
+  100% {background-position: right; box-shadow: darkblue 0.3rem 0.4rem 1.4rem -.5rem inset, darkblue 0rem 0.3rem 0.4rem -1.2rem inset}
 }
 
 .switch {

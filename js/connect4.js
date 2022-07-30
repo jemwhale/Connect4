@@ -2,7 +2,6 @@ const playerRed = 'red';
 const playerYellow = 'yellow';
 
 let currentPlayer = playerRed;
-let redToStart = true
 
 let board = [];
 let fillTracker = []
@@ -24,6 +23,7 @@ function setGame() {
     fillTracker = [5,5,5,5,5,5,5]
     setBoard();
     setTopRow();
+    nextRound();
     setLighting();
     updateScore();
 }
@@ -192,6 +192,7 @@ function move(e){
     }
 
     updateScore();
+    nextRound();
     resetTopRow(c);
     alternatePlayer();
     updateFillTracker(r,c);
@@ -225,6 +226,22 @@ function resetTopRow(c){
 function updateFillTracker(r,c){
     r --;
     fillTracker[c] = r;
+}
+
+function nextRound(){
+    let newRoundBtn = document.getElementById('newround')
+    if(gameOver){
+    newRoundBtn.setAttribute('class', 'show') 
+    }else{
+        newRoundBtn.setAttribute('class', 'hide') 
+    }
+}
+
+function resetRound(){
+    gameOver = false;
+    clearSpaces();
+    clearTopSpaces();
+    setGame();
 }
 
 function connect4(){
@@ -349,14 +366,5 @@ function clearScore(){
 
 function resetPlayers(){
     gameOver = false
-    redToStart = true
+    currentPlayer = playerRed
 }
-
-
-// if (redToStart){
-//     currentPlayer = playerYellow
-//     redToStart= false
-// }else{
-//     redToStart = true
-//     currentPlayer = playerRed
-// }
