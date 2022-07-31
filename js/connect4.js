@@ -53,7 +53,6 @@ function setTopRow(){
         let space = document.createElement('div');
         space.setAttribute('id', 'top-' + c);
         space.classList.add('top-space');
-        space.classList.add('bob');
         document.getElementById('board-top').appendChild(space);
     }
 }
@@ -146,7 +145,12 @@ function removeExistingAnimationElement(){
 
 function updateTopPiece(c){
     let topSpace = document.getElementById('top-' + c)
-    topSpace.classList.add(`top-${currentPlayer}`);
+    if (fillTracker[c] >= 0){ 
+        topSpace.classList.add(`top-${currentPlayer}`);
+        topSpace.classList.add('bob');
+    }else{
+        topSpace.classList.add(`top-${currentPlayer}-denied`);
+    }
 }
 
 function addNewAnimationElement(r,c){
@@ -164,8 +168,11 @@ function resetHighlightColumn(e){
     let c = Number(location[1]);
 
     let topSpace = document.getElementById('top-' + c)
+    topSpace.classList.remove('bob');
     topSpace.classList.remove('top-red');
     topSpace.classList.remove('top-yellow');
+    topSpace.classList.remove('top-red-denied');
+    topSpace.classList.remove('top-yellow-denied');
 
     let deleteDiv = document.getElementById('animation-div');
     deleteDiv.remove();
@@ -240,6 +247,7 @@ function alternatePlayer(){
 function resetTopRow(c){
     let topSpace = document.getElementById('top-' + c);
     topSpace.classList.remove(`top-${currentPlayer}`);
+    topSpace.classList.remove('bob');
 }
 
 function updateFillTracker(r,c){
