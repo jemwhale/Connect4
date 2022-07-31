@@ -1,7 +1,8 @@
 const playerRed = 'red';
 const playerYellow = 'yellow';
 
-let currentPlayer = playerRed;
+let startingPlayer = playerRed;
+let currentPlayer = startingPlayer;
 
 let board = [];
 let fillTracker = []
@@ -12,6 +13,7 @@ const columns = 7;
 let scoreRed = 0
 let scoreYellow = 0
 let gameOver = false;
+let draw = false;
 let dynamicLighting = false
 
 window.onload = function() {
@@ -21,6 +23,7 @@ window.onload = function() {
 function setGame() {
     board = []
     fillTracker = [5,5,5,5,5,5,5]
+    currentPlayer = startingPlayer;
     setBoard();
     setTopRow();
     nextRound();
@@ -63,7 +66,7 @@ function updateScore(){
 }
 
 function setWinner(){
-    if (gameOver === true){
+    if (gameOver === true && draw === false){
         if(currentPlayer === playerRed){
             scoreRed ++;
         }else{
@@ -105,14 +108,12 @@ function lightBoard(){
 }
 
 function toggleLighting(){
+    let text = 'Warning! \n \n Turning on dynamic lighting may affect performance!';
     if (dynamicLighting === false){
-        let text = 'Warning! \n \n Turning on dynamic lighting may affect performance!';
         if (confirm(text) == true) {
             dynamicLighting = true;
         } else {
             dynamicLighting = false;
-            let toggle = document.getElementById('toggle')
-            toggle.checked = false
         } 
     }else{
         dynamicLighting = false;
@@ -186,16 +187,26 @@ function move(e){
 
     dropAnimation();
     assignSpace(r,c);
-
     if(connect4()){
         gameOver = true
     }
-
-    updateScore();
-    nextRound();
     resetTopRow(c);
-    alternatePlayer();
     updateFillTracker(r,c);
+    checkForDraw();
+    updateScore();
+    alternatePlayer();
+    nextRound();
+    
+}
+
+function checkForDraw(){
+    for (i = 0; i < columns; i++){
+        if(fillTracker[i] !== -1){
+            return;
+        }
+    }
+    gameOver = true;
+    draw = true;
 }
 
 function assignSpace(r,c){
@@ -211,10 +222,18 @@ function dropAnimation(){
 }
 
 function alternatePlayer(){
-    if (currentPlayer === playerRed){
-        currentPlayer = playerYellow;
+    if (gameOver){
+        if (startingPlayer === playerRed){
+            startingPlayer = playerYellow;
+        }else{
+            startingPlayer = playerRed;
+        }
     }else{
-        currentPlayer = playerRed;
+        if (currentPlayer === playerRed){
+            currentPlayer = playerYellow;
+        }else{
+            currentPlayer = playerRed;
+        }
     }
 }
 
@@ -239,6 +258,7 @@ function nextRound(){
 
 function resetRound(){
     gameOver = false;
+    draw = false;
     clearSpaces();
     clearTopSpaces();
     setGame();
@@ -365,6 +385,7 @@ function clearScore(){
 }
 
 function resetPlayers(){
-    gameOver = false
-    currentPlayer = playerRed
+    gameOver = false;
+    draw = false;
+    startingPlayer = playerRed;
 }
