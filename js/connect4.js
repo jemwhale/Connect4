@@ -435,6 +435,18 @@ function resetNames(){
     yellow.innerText = 'Yellow'
 }
 
+// function showMenu(){
+//     let hamburger = document.getElementById('hamburgertoggle')
+//     let items = document.getElementById('navlinks')
+//     if (hamburger.checked === true){
+//         window.alert('hide')
+//         items.classList.remove('hidemenu')
+//     }else{
+//         window.alert('show')
+//         items.classList.add('hidemenu')
+//     }
+// }
+
 
 //KEYBOARD FUNCTONALITY - BUGGY WHEN WORKING WITH MOUSEMOVE AND MOUSEOUT EVENTS
 
