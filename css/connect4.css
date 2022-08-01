@@ -374,7 +374,6 @@ input:checked + .slider:before {
 }
 
 @media screen and (max-width: 915px) {
- 
   #main{
     margin-top: 1rem;
   }
@@ -406,92 +405,61 @@ header{
   width: 100vw;
   position: fixed; 
   box-shadow: .1rem 0rem 1rem lightgray;
-}
-
-#title{
-  display: none;
-}
-
-.navlinks{
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-}
-
-
-
-    .staticshadow{
-      box-shadow: darkblue 0.7rem 0.4rem 0.4rem -0.8rem inset;
-    }
-
-}
-
-@media screen and (max-width: 501px) {
- 
-  #main{
-    margin-top: 1rem;
   }
- 
-  #board{
-  height: 45vmin;
-  width: 53vmin;
- }
 
- #board-top{
-  height: 5vmin;
-  width: 53vmin;
- }
+  @keyframes shadow {
+    0% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 0.4rem -0.8rem inset;}
+    50% {background-position: left; box-shadow: darkblue -0.7rem 0.4rem 0.4rem -0.8rem inset;}
+    100% {background-position: right; box-shadow: darkblue 0.7rem 0.4rem 0.4rem -0.8rem inset;}
+  }
 
-header{
-  padding: 0px 0px;
-  width: 100%;
-  height: 60px;
-  align-items: center;
-}
-
-#navbar{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-
-  height: 3rem;
-  width: 100vw;
-  position: fixed; 
-  box-shadow: .1rem 0rem 1rem lightgray;
-}
-
-#title{
-  display: none;
-}
-
-.switch, #dl{
-  display: none;
-}
-
-.navlinks{
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-}
-
-
-
-    .staticshadow{
-      box-shadow: darkblue 0.7rem 0.4rem 0.4rem -0.8rem inset;
-    }
-
-}
-
-
-@media screen and (max-width: 360px) {
- 
-  #newnames{
+  #title{
     display: none;
   }
 
+  .navlinks{
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .staticshadow{
+    box-shadow: darkblue 0.7rem 0.4rem 0.4rem -0.8rem inset;
+  }
+}
+
+@media screen and (max-width: 501px) {
+  #main{
+    margin-top: 1rem;
+  }
+  
+  header{
+    padding: 0px 0px;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+  }
+
+  #title{
+    display: none;
+  }
+
+  .switch, #dl{
+    display: none;
+  }
+
+  .navlinks{
+    font-size: 0.8rem;
+  }
+
+  .staticshadow{
+    box-shadow: darkblue 0.7rem 0.4rem 0.4rem -0.8rem inset;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #newnames{
+    display: none;
+  }
 }
