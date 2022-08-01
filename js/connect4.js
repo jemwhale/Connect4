@@ -10,11 +10,16 @@ let fillTracker = []
 const rows = 6;
 const columns = 7;
 
+let selectedColumn = null
+const modal = document.getElementById("namesModal");
+
 let scoreRed = 0
 let scoreYellow = 0
 let gameOver = false;
 let draw = false;
 let dynamicLighting = false
+
+
 
 window.onload = function() {
     setGame();
@@ -41,7 +46,7 @@ function setBoard(){
             space.setAttribute('class', 'space');
             space.addEventListener('click', move);
             space.addEventListener('mousemove', highlightColumn);
-            space.addEventListener('mouseout', resetHighlightColumn);
+            space.addEventListener('mouseout', resetHighlightColumnEvent);
             document.getElementById('board').appendChild(space);
         }
         board.push(row);
@@ -66,11 +71,7 @@ function updateScore(){
 
 function setWinner(){
     if (gameOver === true && draw === false){
-        if(currentPlayer === playerRed){
-            scoreRed ++;
-        }else{
-            scoreYellow ++;
-        }
+        (currentPlayer === playerRed) ? scoreRed ++ : scoreYellow ++;
     }
 }
 
@@ -108,12 +109,15 @@ function lightBoard(){
 
 function toggleLighting(){
     let text = 'Warning! \n \n Turning on dynamic lighting may affect performance!';
+    let toggle = document.getElementById('toggle');
     if (dynamicLighting === false){
-        if (confirm(text) == true) {
-            dynamicLighting = true;
-        } else {
+        if (confirm(text) == true){
+        dynamicLighting = true
+        toggle.checked = true
+         }else{
             dynamicLighting = false;
-        } 
+            toggle.checked = false
+         }
     }else{
         dynamicLighting = false;
     }
@@ -126,11 +130,13 @@ function highlightColumn(e){
         return
     }
 
+    previousSelectedColum = selectedColumn
     let location = this.id.split('-');
     let c = location[1];
-    let r = fillTracker[c]
-    
-    removeExistingAnimationElement();
+    let r = fillTracker[c];
+    selectedColumn = Number(c);
+
+    removeExistingAnimationElement(c);
     updateTopPiece(c);
     addNewAnimationElement(r,c);
 }
@@ -162,10 +168,17 @@ function addNewAnimationElement(r,c){
     }
 }
 
-function resetHighlightColumn(e){
+function resetHighlightColumnEvent(e){
 
     let location = this.id.split('-');
     let c = Number(location[1]);
+    selectedColumn = null
+
+
+    resetHighlightColumn(c);
+}
+
+function resetHighlightColumn(c){
 
     let topSpace = document.getElementById('top-' + c)
     topSpace.classList.remove('bob');
@@ -230,17 +243,9 @@ function dropAnimation(){
 
 function alternatePlayer(){
     if (gameOver){
-        if (startingPlayer === playerRed){
-            startingPlayer = playerYellow;
-        }else{
-            startingPlayer = playerRed;
-        }
+        (startingPlayer === playerRed) ? startingPlayer = playerYellow : startingPlayer = playerRed;
     }else{
-        if (currentPlayer === playerRed){
-            currentPlayer = playerYellow;
-        }else{
-            currentPlayer = playerRed;
-        }
+        (currentPlayer === playerRed) ? currentPlayer = playerYellow : currentPlayer = playerRed;
     }
 }
 
@@ -257,11 +262,11 @@ function updateFillTracker(r,c){
 
 function nextRound(){
     let newRoundBtn = document.getElementById('newround')
-    if(gameOver){
-    newRoundBtn.setAttribute('class', 'show') 
-    }else{
-        newRoundBtn.setAttribute('class', 'hide') 
-    }
+    if (gameOver){
+        newRoundBtn.setAttribute('class', 'show');
+     }else{
+        newRoundBtn.setAttribute('class', 'hide');
+     }
 }
 
 function resetRound(){
@@ -368,6 +373,7 @@ function resetGame(){
     clearTopSpaces();
     clearScore();
     resetPlayers(); 
+    resetNames();
     setGame();
 }
 
@@ -397,3 +403,83 @@ function resetPlayers(){
     draw = false;
     startingPlayer = playerRed;
 }
+
+function editNames(){
+    namesModal.style.display = "block";
+}
+
+window.onclick = function(event){
+    if (event.target == namesModal) {
+        closeNames();
+      }
+}
+
+function closeNames(){
+    updateNames();
+    namesModal.style.display = "none";
+}
+
+function updateNames(){
+    let red = document.getElementById('redScoreName');
+    let yellow = document.getElementById('yellowScoreName');
+    let newRed = document.getElementsByName('redName')[0];
+    let newYellow = document.getElementsByName('yellowName')[0];
+    red.innerText = newRed.value;
+    yellow.innerText = newYellow.value;
+}
+
+function resetNames(){
+    let red = document.getElementById('redScoreName');
+    let yellow = document.getElementById('yellowScoreName');
+    red.innerText = 'Red'
+    yellow.innerText = 'Yellow'
+}
+
+
+//KEYBOARD FUNCTONALITY - BUGGY WHEN WORKING WITH MOUSEMOVE AND MOUSEOUT EVENTS
+
+// document.addEventListener('keydown', (event) => {
+//         let keyName = event.key;
+//         keyboardFunc(keyName)
+//     }
+// )
+
+// function keyboardFunc(keyName){
+
+//     previousSelectedColum = selectedColumn
+
+//     // window.alert(String(selectedColumn));
+
+//     if (keyName === 'ArrowRight'){
+//         if (selectedColumn === null){
+//             selectedColumn = 0
+//          }else if (selectedColumn >=0 && selectedColumn <6){
+//             selectedColumn += 1
+//          }else{
+//             return
+//          }
+//     };
+//     if (keyName === 'ArrowLeft'){
+//         if (selectedColumn === null){
+//             selectedColumn = 6
+//          }else if (selectedColumn >0 && selectedColumn <=6){
+//             selectedColumn -= 1
+//          }else{
+//             return
+//          }
+//     };
+
+//     for (i = 0; i < columns; i++){
+//         if (i !== selectedColumn){
+        
+//         }
+//     }
+
+//     let r = fillTracker[selectedColumn];
+//     if (previousSelectedColum !== null){
+//         resetHighlightColumn(previousSelectedColum);    
+//     }
+//     removeExistingAnimationElement();
+//     updateTopPiece(selectedColumn);
+//     addNewAnimationElement(r,selectedColumn);
+// }

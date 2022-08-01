@@ -13,14 +13,15 @@
     <header>
         <h3 class="title1" id="title">CONNECTFOUR</h3>
         <ul class="navlinks">
-            <li class="red">Red</li>
+            <li class="red" id="redScoreName">Red</li>
             <li id="score"></li>
-            <li class="yellow">Yellow</li>
+            <li class="yellow" id="yellowScoreName">Yellow</li>
         </ul>
         <nav>
             <ul class="navlinks">
                 <li><a id="newround" class="hide" onclick="resetRound()">Next Round</a></li>
                 <li><a id="newgame" onclick="resetGame()">New Game</a></li>
+                <li><a id="newnames" class="show" onclick="editNames()">Edit Names</a></li>
                 <li>Dynamic Lighting
                     <label class="switch" alt="dynamic lighting">
                         <input id="toggle" class="toggle" type="checkbox" onclick="toggleLighting()">
@@ -37,5 +38,12 @@
         <div id="board-top"></div>
         <div id="board" class="shineshadow"></div> 
     </main>
+<div id="namesModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeNames()">&times;</span>
+      <p class="red">Red <input type="text" class="textBox" name="redName" value="Red"></p>
+      <p class="yellow">Yellow<input type="text" class="textBox" name="yellowName" value="Yellow"></p>
+    </div>
+  </div>
 </body>
 </html>
