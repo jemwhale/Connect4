@@ -71,6 +71,14 @@ header{
   cursor: pointer;
 }
 
+.visible{
+  visibility: visible;
+}
+
+.notvisible{
+  visibility: hidden;
+}
+
 #board{
   height: 60vmin;
   width: 70vmin;

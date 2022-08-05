@@ -244,30 +244,30 @@ function dropAnimation(){
 function alternatePlayer(){
     let redarrow = document.getElementById('redturn')
     let yellowarrow = document.getElementById('yellowturn')
-    yellowarrow.classList.remove('show')
-    yellowarrow.classList.remove('hide')
-    redarrow.classList.remove('show')
-    redarrow.classList.remove('hide')
+    yellowarrow.classList.remove('visible')
+    yellowarrow.classList.remove('notvisible')
+    redarrow.classList.remove('visible')
+    redarrow.classList.remove('notvisible')
     if (gameOver){
        if (startingPlayer === playerRed) {
         startingPlayer = playerYellow;
-        yellowarrow.classList.add('show');
-        redarrow.classList.add('hide');
+        yellowarrow.classList.add('visible');
+        redarrow.classList.add('notvisible');
     }else{
         startingPlayer = playerRed;
-        yellowarrow.classList.add('hide');
-        redarrow.classList.add('show');
+        yellowarrow.classList.add('notvisible');
+        redarrow.classList.add('visible');
     }
          
     }else{
         if(currentPlayer === playerRed) {
             currentPlayer = playerYellow; 
-            yellowarrow.classList.add('show');
-            redarrow.classList.add('hide'); 
+            yellowarrow.classList.add('visible');
+            redarrow.classList.add('notvisible'); 
         }else{
             currentPlayer = playerRed;
-            yellowarrow.classList.add('hide');
-            redarrow.classList.add('show');
+            yellowarrow.classList.add('notvisible');
+            redarrow.classList.add('visible');
         }
     }
 }
@@ -427,12 +427,12 @@ function resetPlayers(){
     startingPlayer = playerRed;
     let redarrow = document.getElementById('redturn')
     let yellowarrow = document.getElementById('yellowturn')
-    yellowarrow.classList.remove('show')
-    yellowarrow.classList.remove('hide')
-    redarrow.classList.remove('show')
-    redarrow.classList.remove('hide')
-    redarrow.classList.add('show');
-    yellowarrow.classList.add('hide');
+    yellowarrow.classList.remove('visible')
+    yellowarrow.classList.remove('notvisible')
+    redarrow.classList.remove('visible')
+    redarrow.classList.remove('notvisible')
+    redarrow.classList.add('visible');
+    yellowarrow.classList.add('notvisible');
 }
 
 function editNames(){
