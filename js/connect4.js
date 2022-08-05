@@ -242,10 +242,33 @@ function dropAnimation(){
 }
 
 function alternatePlayer(){
+    let redarrow = document.getElementById('redturn')
+    let yellowarrow = document.getElementById('yellowturn')
+    yellowarrow.classList.remove('show')
+    yellowarrow.classList.remove('hide')
+    redarrow.classList.remove('show')
+    redarrow.classList.remove('hide')
     if (gameOver){
-        (startingPlayer === playerRed) ? startingPlayer = playerYellow : startingPlayer = playerRed;
+       if (startingPlayer === playerRed) {
+        startingPlayer = playerYellow;
+        yellowarrow.classList.add('show');
+        redarrow.classList.add('hide');
     }else{
-        (currentPlayer === playerRed) ? currentPlayer = playerYellow : currentPlayer = playerRed;
+        startingPlayer = playerRed;
+        yellowarrow.classList.add('hide');
+        redarrow.classList.add('show');
+    }
+         
+    }else{
+        if(currentPlayer === playerRed) {
+            currentPlayer = playerYellow; 
+            yellowarrow.classList.add('show');
+            redarrow.classList.add('hide'); 
+        }else{
+            currentPlayer = playerRed;
+            yellowarrow.classList.add('hide');
+            redarrow.classList.add('show');
+        }
     }
 }
 
@@ -402,6 +425,14 @@ function resetPlayers(){
     gameOver = false;
     draw = false;
     startingPlayer = playerRed;
+    let redarrow = document.getElementById('redturn')
+    let yellowarrow = document.getElementById('yellowturn')
+    yellowarrow.classList.remove('show')
+    yellowarrow.classList.remove('hide')
+    redarrow.classList.remove('show')
+    redarrow.classList.remove('hide')
+    redarrow.classList.add('show');
+    yellowarrow.classList.add('hide');
 }
 
 function editNames(){
