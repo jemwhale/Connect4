@@ -11,6 +11,7 @@ const rows = 6;
 const columns = 7;
 
 let selectedColumn = null
+let lastSpace = null;
 const modal = document.getElementById("namesModal");
 
 let scoreRed = 0
